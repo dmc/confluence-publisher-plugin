@@ -47,10 +47,10 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: artifact spotbugs result
-        path: target/spotBugsXml.xml
+        path: target/spotbugsXml.xml
 
     - name: publish spotbugs
       uses: jwgmeligmeyling/spotbugs-github-action@master
       continue-on-error: true
       with:
-        path: '**/target/spotBugsXml.xml'
+        path: 'target/spotbugsXml.xml'
