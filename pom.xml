@@ -26,7 +26,7 @@
     </parent>
 
     <properties>
-        <changelist>9999-SNAPSHOT</changelist>
+        <changelist>163.vf906edb_73cce_rebuild</changelist>
         <jenkins.version>2.410</jenkins.version>
         <gitHubRepo>jenkinsci/${project.artifactId}-plugin</gitHubRepo>
         <no-test-jar>false</no-test-jar>
@@ -136,6 +136,10 @@
                     <artifactId>commons-lang3</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.jenkins.plugins</groupId>
+            <artifactId>javax-mail-api</artifactId>
         </dependency>
         <dependency>
             <groupId>io.jenkins.plugins</groupId>

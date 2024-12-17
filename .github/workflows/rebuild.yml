@@ -1,0 +1,56 @@
+name: rebuild
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'build branch'
+        required: true
+        default: 'master'
+      java-version:
+        description: 'java version'
+        required: true
+        default: '11'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.inputs.branch }}
+
+    - name: setup Java ${{ github.event.inputs.java-version }} 
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: ${{ github.event.inputs.java-version }}
+        cache: 'maven'
+
+    - name: setup Maven 3.8
+      uses: stCarolas/setup-maven@v5
+      with:
+        maven-version: 3.8.2
+
+    - name: build
+      run: mvn clean install
+
+    - name: artifact hpi kinds
+      uses: actions/upload-artifact@v4
+      with:
+        name: upload artifact
+        path: target/confluence-publisher*
+
+    - name: artifact spotbugs xml
+      uses: actions/upload-artifact@v4
+      with:
+        name: artifact spotbugs result
+        path: target/spotbugsXml.xml
+
+    - name: publish spotbugs
+      uses: jwgmeligmeyling/spotbugs-github-action@master
+      continue-on-error: true
+      with:
+        path: 'target/spotbugsXml.xml'
