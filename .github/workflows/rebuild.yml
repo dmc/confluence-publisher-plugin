@@ -37,13 +37,13 @@ jobs:
     - name: build
       run: mvn clean install
 
-    - name: artifact hpi kinds
+    - name: artifact-hpi-kinds
       uses: actions/upload-artifact@v4
       with:
-        name: upload artifact
+        name: upload-artifact
         path: target/confluence-publisher*
 
-    - name: artifact spotbugs xml
+    - name: artifact-spotbugs-xml
       uses: actions/upload-artifact@v4
       with:
         name: artifact spotbugs result
